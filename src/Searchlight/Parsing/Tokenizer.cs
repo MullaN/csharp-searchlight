@@ -108,7 +108,7 @@ namespace Searchlight.Parsing
                         break;
                     }
                 }
-                else if (c == StringConstants.OPENING_BRACKET)
+                else if (c == StringConstants.DOT)
                 {
                     if (i != line.Length - 1 && line[i + 1] != StringConstants.DOUBLE_QUOTE)
                     {
@@ -135,17 +135,10 @@ namespace Searchlight.Parsing
                         // End tokens on double quotes but not escaped double quotes or the first double quote
                         if (c == StringConstants.DOUBLE_QUOTE && line[i - 1] != StringConstants.BACKSLASH && sb.Length > 0)
                         {
-                            if (i != line.Length - 1 && line[i + 1] != StringConstants.CLOSING_BRACKET)
-                            {
-                                tokens.HasUnterminatedJsonKeyName = true;
-                                break;
-                            }
-
                             sb.Append(c);
                             tokens.TokenQueue.Enqueue(new Token(sb.ToString(), i - sb.Length - 1));
                             sb.Length = 0;
                             inJsonKey = false;
-                            i++;
                             break;
                         }
                         

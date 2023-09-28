@@ -161,22 +161,20 @@ public class SqlServerExecutorTests
     [TestMethod]
     public async Task EmployeeTestSuite()
     {
-        /*
         await Executors.EmployeeTestSuite.BasicTestSuite(_src, _list, _postgres);
-        */
         
-        var syntax = _src.ParseFilter("dims[\"test\"] eq 'value'");
+        var syntax = _src.ParseFilter("dims.\"test\" eq 'value'");
         var results = await _postgres(syntax);
 
         Assert.AreEqual(2, results.records.Length);
 
-        syntax = _src.ParseFilter("dims[\"test\"][\"inner\"] IS NOT NULL OR dims[\"test\"] eq 'value'");
-        syntax.OrderBy = _src.ParseOrderBy("dims[\"test\"][\"inner\"]");
+        syntax = _src.ParseFilter("dims.\"test\".\"inner\" IS NOT NULL OR dims.\"test\" eq 'value'");
+        syntax.OrderBy = _src.ParseOrderBy("dims.\"test\".\"inner\"");
         results = await _postgres(syntax);
         
         Assert.AreEqual(4, results.records.Length);
         
-        syntax = _src.ParseFilter("dims[\"test\"][\"inner\"] eq 'value'");
+        syntax = _src.ParseFilter("dims.\"test\".\"inner\" eq 'value'");
         results = await _postgres(syntax);
         
         Assert.AreEqual(1, results.records.Length);

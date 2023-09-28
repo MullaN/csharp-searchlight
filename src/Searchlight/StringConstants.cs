@@ -145,12 +145,7 @@ namespace Searchlight
         /// <summary>
         /// Used to start JSON keys 
         /// </summary>
-        public static readonly char OPENING_BRACKET = '[';
-        
-        /// <summary>
-        /// Used to start JSON keys 
-        /// </summary>
-        public static readonly char CLOSING_BRACKET = ']';
+        public static readonly char DOT = '.';
         
         /// <summary>
         /// Used for escape characters 

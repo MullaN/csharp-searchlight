@@ -17,7 +17,7 @@ namespace Searchlight
         public string ErrorMessage
         {
             get =>
-                $"The query {(ParsingType == ParsingType.Filter ? "filter" : "order by")}, {OriginalFilter}, contained an unterminated JSON Key that starts at {StartPosition}. JSON Keys should be in the format [\"{{KeyName}}\"]";
+                $"The query {(ParsingType == ParsingType.Filter ? "filter" : "order by")}, {OriginalFilter}, contained an unterminated JSON Key that starts at {StartPosition}. JSON Keys should be in the format .\"{{KeyName}}\"";
         }
     }
 
