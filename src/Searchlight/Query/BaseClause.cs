@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Searchlight.Query
 {
     /// <summary>
@@ -16,5 +18,10 @@ namespace Searchlight.Query
         /// If this is the last clause, the conjunction is NONE.
         /// </summary>
         public ConjunctionType Conjunction { get; set; }
+
+        /// <summary>
+        /// An array of JSON keys for the clause if any.
+        /// </summary>
+        public string[] JsonKeys { get; set; } = Array.Empty<string>();
     }
 }

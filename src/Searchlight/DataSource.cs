@@ -65,15 +65,15 @@ namespace Searchlight
         /// <returns></returns>
         public DataSource WithColumn(string columnName, Type columnType)
         {
-            return WithRenamingColumn(columnName, columnName, null, columnType, null, null);
+            return WithRenamingColumn(columnName, columnName, null, columnType, null, null, false);
         }
 
         /// <summary>
         /// Add a column to this definition
         /// </summary>
-        public DataSource WithRenamingColumn(string filterName, string columnName, string[] aliases, Type columnType, Type enumType, string description)
+        public DataSource WithRenamingColumn(string filterName, string columnName, string[] aliases, Type columnType, Type enumType, string description, bool isJson)
         {
-            var columnInfo = new ColumnInfo(filterName, columnName, aliases, columnType, enumType, description);
+            var columnInfo = new ColumnInfo(filterName, columnName, aliases, columnType, enumType, description, isJson);
             _columns.Add(columnInfo);
 
             // Allow the API caller to either specify either the model name or one of the aliases
@@ -203,7 +203,7 @@ namespace Searchlight
                             var t = filter.FieldType ?? pi.PropertyType;
                             var columnName = filter.OriginalName ?? pi.Name;
                             var aliases = filter.Aliases ?? Array.Empty<string>();
-                            src.WithRenamingColumn(pi.Name, columnName, aliases, t, filter.EnumType, filter.Description);
+                            src.WithRenamingColumn(pi.Name, columnName, aliases, t, filter.EnumType, filter.Description, filter.IsJson);
                         }
 
                         var collection = pi.GetCustomAttributes<SearchlightCollection>().FirstOrDefault();

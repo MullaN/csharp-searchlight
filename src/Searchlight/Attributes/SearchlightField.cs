@@ -32,5 +32,10 @@ namespace Searchlight
         /// (optional) If you wish to use Searchlight autocomplete, you can provide a documentation block here.
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// (optional) Set to true if the database column is storing JSON.
+       /// </summary>
+        public bool IsJson { get; set; } = false;
     }
 }

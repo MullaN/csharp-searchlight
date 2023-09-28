@@ -23,8 +23,18 @@ namespace Searchlight.Parsing
         public bool HasUnterminatedLiteral { get; set; }
         
         /// <summary>
+        /// Set to true if there is an open double quote but no close double quote
+        /// </summary>
+        public bool HasUnterminatedJsonKeyName { get; set; }
+        
+        /// <summary>
         /// Used to determine where unterminated literal begins
         /// </summary>
         public int LastStringLiteralBegin { get; set; }
+        
+        /// <summary>
+        /// Used to determine where JSON Key begins
+        /// </summary>
+        public int LastJsonKeyBegin { get; set; }
     }
 }

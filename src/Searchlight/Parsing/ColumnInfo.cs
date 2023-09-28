@@ -16,7 +16,7 @@ namespace Searchlight.Parsing
         /// <param name="columnType">The raw type of the column in the database</param>
         /// <param name="enumType">The type of the enum that the column is mapped to</param>
         /// <param name="description">A description of the column for autocomplete</param>
-        public ColumnInfo(string filterName, string columnName, string[] aliases, Type columnType, Type enumType, string description)
+        public ColumnInfo(string filterName, string columnName, string[] aliases, Type columnType, Type enumType, string description, bool isJson)
         {
             FieldName = filterName;
             OriginalName = columnName;
@@ -29,6 +29,7 @@ namespace Searchlight.Parsing
 
             EnumType = enumType;
             Description = description;
+            IsJson = isJson;
         }
 
         /// <summary>
@@ -61,5 +62,10 @@ namespace Searchlight.Parsing
         /// Detailed field documentation for autocomplete, if provided.
         /// </summary>
         public string Description { get; private set; }
+        
+        /// <summary>
+        /// (optional) Set to true if the database column is storing JSON.
+       /// </summary>
+        public bool IsJson { get; set; } = false;
     }
 }
