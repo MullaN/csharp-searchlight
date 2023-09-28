@@ -146,6 +146,18 @@ namespace Searchlight.Parsing
 
             // Okay, let's tokenize the orderBy statement and begin parsing
             var tokens = Tokenizer.GenerateTokens(orderBy);
+            
+            if (tokens.HasUnterminatedJsonKeyName)
+            {
+                syntax.AddError(new UnterminatedJsonKey()
+                {
+                    OriginalFilter = orderBy,
+                    StartPosition = tokens.LastJsonKeyBegin,
+                    ParsingType = ParsingType.OrderBy
+                });
+                return;
+            }
+            
             while (tokens.TokenQueue.Count > 0)
             {
                 var si = new SortInfo { Direction = SortDirection.Ascending };
@@ -171,6 +183,10 @@ namespace Searchlight.Parsing
                 while (si.Column != null && si.Column.IsJson && nextToken.Value.StartsWith("\""))
                 {
                     jsonKeys.Add(nextToken.Value);
+                    
+                    // Was that the last token?
+                    if (tokens.TokenQueue.Count == 0) break;
+                    
                     nextToken = tokens.TokenQueue.Dequeue();
                 }
 
@@ -233,6 +249,16 @@ namespace Searchlight.Parsing
                 {
                     OriginalFilter = filter,
                     StartPosition = tokens.LastStringLiteralBegin 
+                });
+                return;
+            }
+            if (tokens.HasUnterminatedJsonKeyName)
+            {
+                syntax.AddError(new UnterminatedJsonKey()
+                {
+                    OriginalFilter = filter,
+                    StartPosition = tokens.LastJsonKeyBegin,
+                    ParsingType = ParsingType.Filter
                 });
                 return;
             }

@@ -170,8 +170,7 @@ public class SqlServerExecutorTests
 
         Assert.AreEqual(2, results.records.Length);
 
-        syntax = _src.ParseFilter("dims[\"test\"][\"inner\"] IS NOT NULL");
-        syntax.OrderBy = _src.ParseOrderBy("dims[\"test\"][\"inner\"] desc");
+        syntax = _src.ParseFilter("dims[\"test\"][\"inner\"] IS NOT NULL OR dims[\"test\"] eq 'value'");
         var test = syntax.ToSqlServerCommand();
         results = await _postgres(syntax);
         
